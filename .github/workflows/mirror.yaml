@@ -1,0 +1,14 @@
+name: Mirror to Algo Repository
+
+on: [push]
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Push to Organization Repository
+      run: |
+        git push https://x-access-token:${{ secrets.GARDEN }}@github.com/algorithm-legend/algorithm-study.git HEAD:garden
