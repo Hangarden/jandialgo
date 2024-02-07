@@ -14,17 +14,19 @@ def dfs(x):
     if x == n:
         answer += 1
         return
+    # rage(n)은 행의 갯수
     for i in range(n):
         # 열, 대각선(/), 대각선 \ 을 동시에 만족하는 인덱스 말을 놓지 않았다면
         # / -> x,y 좌표의 합이 같은 곳, \ -> x-y의 차이가 같은 곳
         # 만족하면 계속해서 말을 놓고 아니라면 다음 행으로 가는 거 아닌가
         if v1[i] == v2[x + i] == v3[x - i] == 0:
             v1[i] = v2[x + i] = v3[x - i] = 1
+            # 다음행에 말을 놓는다.
             dfs(x + 1)
             v1[i] = v2[x + i] = v3[x - i] = 0
 
 
-v1, v2, v3 = [[0] * (n * 2) for _ in range(3)]
+v1, v2, v3 = [[0] * (n * 2 -1) for _ in range(3)]
 answer = 0
 dfs(0)
 print(answer)
