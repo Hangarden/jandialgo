@@ -1,28 +1,34 @@
-answer = []
-    
-def dfs(node, sheep, wolf, possibles, info, tree):
-    # 방문한 곳이 양인지 늑대인지 확인
-    global answer
-    if info[node] == 0:
-        sheep += 1
-    else:
-        wolf += 1
-        
-    #양과 늑대 갯수를 확인하고 늑대갯수가 크거나 같다면 전부 잡아먹힘으로 종료
-    if sheep > wolf:
-        answer.append(sheep)
-    else:
-        return 
-    
-    possibles.extend(tree[node])
-    for x in possibles:
-        dfs(x, sheep, wolf, [i for i in possibles if i != x], info,tree)
-
+answer = 0
 def solution(info, edges):
-    tree = [[] for _ in range(len(info))]
-    for x,y in edges:
-        tree[x].append(y)
-    # print(tree)
-    dfs(0,0,0,[],info, tree)
-    # return 0
-    return max(answer)
+
+    
+    n = len(info)
+    
+#     tree = [[] for _ in range(n)]
+    
+#     for a, b in edges:
+#         tree[a].append(b)
+        
+    visited = [False] * n
+    visited[0] = True
+    # print(visited)
+    
+    def dfs(sheep, wolf):
+        global answer
+        if sheep <= wolf:
+            return
+        else:
+            answer = max(answer, sheep)
+            
+        for p, c in edges:
+            if visited[p] and not visited[c]:
+                visited[c] = 1
+                if info[c] == 1:
+                    dfs(sheep, wolf + 1)
+                else:
+                    dfs(sheep + 1, wolf)
+                visited[c] = 0
+                
+    dfs(1,0)
+                
+    return answer
