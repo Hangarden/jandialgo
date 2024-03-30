@@ -7,12 +7,17 @@ maps = [list(map(int, input().split())) for _ in range(N)]
 v = [[0]*M for _ in range(N)]
 # print(visited)
 max_val = 0
+mx = max(map(max, maps))
+# print(map(max, maps))
+# print(mx)
 # print(n,m)
 # print(maps)
 
 dx, dy = [1,-1,0,0],[0,0,1,-1]
 def dfs(n, sm, tlst):
     global max_val
+    if sm + mx * (4 - n) <= max_val:
+        return
     if n == 4:
         max_val = max(max_val, sm)
         # print(lst)
