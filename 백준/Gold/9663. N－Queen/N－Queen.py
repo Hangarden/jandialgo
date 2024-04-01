@@ -1,34 +1,34 @@
 import sys
 
+# sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
 
-# 행렬의 크기
-n = int(input())
 
-# 1.꼭 명시적으로 함수의 return을 만나지 않아도 2.더 이상 실행할 코드가 없다면 종료 됌
-# 2의 경우 실행되었던 곳으로 돌아감 -> 백트래킹의 원리
-def dfs(x):
-    # 가능한 경우의 수를 놓는 경우
+N = int(input())
+
+
+# rows = [0] * N
+# columns = [0] * N
+# line1 = [0] * (2 * N)
+# line2 = [0] * (2 * N)
+columns, line1, line2 = [[0] * (N * 2 -1) for _ in range(3)]
+# print(line2)
+answer = 0
+def n_queen(depth):
     global answer
-    # n행까지 왔으면 n-1까지 말을 다 놓은 것임으로 완료해야한다
-    if x == n:
+    if depth == N:
         answer += 1
         return
-    # rage(n)은 행의 갯수
-    for i in range(n):
-        # 열, 대각선(/), 대각선 \ 을 동시에 만족하는 인덱스 말을 놓지 않았다면
-        # / -> x,y 좌표의 합이 같은 곳, \ -> x-y의 차이가 같은 곳
-        # 만족하면 계속해서 말을 놓고 아니라면 다음 행으로 가는 거 아닌가
-        if v1[i] == v2[x + i] == v3[x - i] == 0:
-            v1[i] = v2[x + i] = v3[x - i] = 1
-            # 다음행에 말을 놓는다.
-            dfs(x + 1)
-            v1[i] = v2[x + i] = v3[x - i] = 0
+    for i in range(N):
+        if columns[i] == line1[depth + i] == line2[depth - i] == 0:
+            columns[i] = line1[depth + i] = line2[depth - i] = 1
+            n_queen(depth + 1)
+            columns[i] = line1[depth + i] = line2[depth - i] = 0
 
+    return
 
-v1, v2, v3 = [[0] * (n * 2 -1) for _ in range(3)]
-answer = 0
-dfs(0)
+n_queen(0)
 print(answer)
 
-
+# v1, v2, v3 = [[0] * (N * 2 -1) for _ in range(3)]
+# print(v1,v2,v3)
