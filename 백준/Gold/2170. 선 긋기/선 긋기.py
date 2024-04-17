@@ -1,27 +1,27 @@
 import sys
+
 input = sys.stdin.readline
+
+lst = []
 n = int(input())
-
-lines = []
-
 for _ in range(n):
-    lines.append(list(map(int, input().split())))
+    lst.append(tuple(map(int, input().split())))
 
-lines.sort()
-# print(lines)
-start, end = -1000000001, -1000000001
+lst.sort()
+# print(lst)
+
+max_val, min_val = -10000000001,-10000000001
 answer = 0
-# print(start, end)
-for x,y in lines:
-    if x > end:
-        answer += end - start
-        start = x
-        end = y
+for x, y in lst:
+    # print(x, y)
+    if max_val < x:
+        answer += max_val - min_val
+        min_val = x
+        max_val = y
+    elif max_val < y:
+        max_val = y
+        continue
 
-    elif start <= x  and y > end:
-        end = y
-
-answer += end - start
+answer += max_val - min_val
 
 print(answer)
-
