@@ -1,0 +1,13 @@
+# 온라인 상품 판매 정보
+# ONLINE SALE
+# 동일한 회원이 상품을 재구매한 데이터
+
+# 재구매를 어떻게 판별할 것 인가
+
+# COUNT해서 2이상이면 재구매 고객이다
+
+SELECT USER_ID, PRODUCT_ID
+FROM ONLINE_SALE
+GROUP BY USER_ID, PRODUCT_ID
+HAVING COUNT(PRODUCT_ID) >= 2
+ORDER BY USER_ID ASC, PRODUCT_ID DESC
