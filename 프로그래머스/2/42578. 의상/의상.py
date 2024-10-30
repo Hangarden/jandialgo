@@ -1,20 +1,22 @@
-import itertools
-
 def solution(clothes):
-    answer = 1
-    dict = {}
-    for name, kind in clothes:
-        
-        if kind not in dict.keys():
-            dict[kind] = [name]
-        
+    answer = 0
+    
+
+    kinds = {}
+    
+    for clothes, kind in clothes:
+        if kind not in kinds:
+            kinds[kind] = 1
         else:
-            dict[kind].append(name) 
+            kinds[kind] += 1
+    print(kinds)
+    sum = 1
+    for x in kinds.values():
+        sum *= (x+1)
         
-    print(dict)
+    answer = sum -1 
     
-    for x in dict.keys():
-        answer *= (len(dict[x]) + 1)
-        # print(x, len(dict[x]))
+    # for x in kinds:
+    #     print(x)
     
-    return answer -1
+    return answer
