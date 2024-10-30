@@ -1,22 +1,18 @@
 def solution(s):
     answer = True
-    s = list(s)
-    # print(s)
     stack = []
-    for i in s:
-        if i == "(":
-            stack.append(i)
-        else:
-            if not stack:
-                answer = False
-                return answer
-            stack.pop()
-            
-    if stack:
-        answer = False
-        return answer
-                
+    # print(s)
     # [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
-    # print('Hello Python')
+    
+    for x in s:
+        if x == "(":
+            stack.append(x)
+        else:
+            if len(stack) == 0:
+                return False
+            else:
+                stack.pop()
+    if len(stack) >= 1:
+        return False
 
     return answer
