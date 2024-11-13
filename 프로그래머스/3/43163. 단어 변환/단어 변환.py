@@ -1,36 +1,37 @@
-from collections import *
+min_val = 999999
 def solution(begin, target, words):
-    answer = 0
-    word_len = len(begin)
-    def canChange(word, x):
-        diff = 0
-        
-        for i in range(word_len):
-            if word[i] != x[i]:
-                diff += 1
-        
-        if diff == 1:
+    
+    def possible(cur, word):
+        count = 0
+        for idx in range(len(word)):
+            if word[idx] != cur[idx]:
+                count += 1
+
+        if count == 1:
             return True
-        
         else:
             return False
+    def back(visited, cur, n):
+        global min_val
+        if cur == target:
+            min_val = min(min_val, n)
+            return
+        if len(visited) == len(words):
+            return 
+
+        for word in words:
+            if possible(cur, word):
+                if word not in visited:
+                    visited.append(word)
+                    back(visited, word, n+1)
+                    visited.pop()
+    answer = 0
     
-    def bfs():
+    back([], begin, 0)
+    
+    if min_val == 999999:
+        answer = 0
+    else:
+        answer = min_val
         
-        if target not in words:
-            return 0
-        q = deque()
-        
-        q.append((begin,0))
-        
-        while q:
-            x,depth = q.popleft()
-            
-            if x == target:
-                return depth
-            
-            for word in words:
-                if canChange(x, word):
-                    q.append([word, depth+1])
-    answer = bfs()
     return answer
